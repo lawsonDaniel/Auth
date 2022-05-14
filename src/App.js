@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { Login } from "./components/Login";
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import Register from "./components/Register";
+import Notfound from './Notfound'
+import { useState } from "react";
 
 function App() {
+  //setting state for Registration form
+  const reg =(userinfo)=>{
+        console.log(userinfo)
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/Login" element={<Login/>}></Route>
+        <Route path="/Register" element={<Register onSubmit={reg}/>}></Route>
+        <Route path="*" element={<Notfound/>}></Route>
+      </Routes>
+    </BrowserRouter>
+    </>
   );
 }
 
