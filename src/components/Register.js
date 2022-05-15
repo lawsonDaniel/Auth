@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link,Redirect} from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { useState } from "react";
+import Header from './Header';
 
 const Register = ({onSubmit}) => {
   <Route exact path="/Register" component={<Register/>} ></Route>
@@ -10,31 +11,50 @@ const Register = ({onSubmit}) => {
   const [Password,SetPassword] = useState('')
   const [ConfirmPassword,SetConfirmPassword] = useState('')
 
-const onClick =()=>{
-  
+const onClick =(e)=>{
+  e.preventDefault()
+  if(!UserName && !Password && !ConfirmPassword){
+    alert('fill the form')
+  }else{
+    if(Password != ConfirmPassword){
+      alert('please password and confirm password must be the same')
+      SetConfirmPassword('')
+      SetPassword('')
+
+    }else{
+      alert('the User has been successfully created ')
+      SetConfirmPassword('')
+      SetPassword('')
+      SetUserName('')
+     
+    }
+  }
+ 
 }
 
   return (
     <div>
+      <Header/>
+      <br/>
         <div className="grid">
     <form onSubmit={onClick} className="form login">
       <div className="form__field">
         <label htmlFor="login__username"><svg className="icon">
             <use xlinkHref="#icon-user" />
           </svg><span className="hidden">Username</span></label>
-        <input autoComplete="username" id="login__username" type="text" name="username" className="form__input" placeholder="Username" required />
+        <input min='2' value={UserName} onChange={(e)=>{SetUserName(e.target.value)}}  type="text" className="form__input" placeholder="Username" required />
       </div>
       <div className="form__field">
         <label htmlFor="login__password"><svg className="icon">
             <use xlinkHref="#icon-lock" />
           </svg><span className="hidden">Password</span></label>
-        <input id="login__password" type="password" name="password" className="form__input" placeholder="Password" required />
+        <input min='8' value={Password} onChange={(e)=>{SetPassword(e.target.value)}}  type="password"  className="form__input" placeholder="Password" required />
       </div>
       <div className="form__field">
         <label htmlFor="login__password"><svg className="icon">
             <use xlinkHref="#icon-lock" />
           </svg><span className="hidden">Password</span></label>
-        <input id="login__password" type="password" name="password" className="form__input" placeholder="Re-EPassword" required />
+        <input min='8' value={ConfirmPassword} onChange={(e)=>{SetConfirmPassword(e.target.value)}}  type="password"  className="form__input" placeholder="Confirm Password" required />
       </div>
       <div className="form__field">
         <input type="submit" value="Sign up" />

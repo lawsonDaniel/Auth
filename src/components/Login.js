@@ -1,11 +1,14 @@
 import React from 'react'
 import './login.css'
 import { Link,Route } from 'react-router-dom'
+import Header from './Header'
 
 export const Login = () => {
   <Route path="/Login" component={<Login/>} ></Route>
   return (
-   
+   <>
+   <Header/>
+   <br />
         <div>
   <div className="grid">
     <form action="https://httpbin.org/post" method="POST" className="form login">
@@ -41,7 +44,7 @@ export const Login = () => {
     </symbol>
   </svg>
 </div>
-
+</>
 
     
   

@@ -3,12 +3,18 @@ import './notfound.css'
 import { Link,Route } from 'react-router-dom'
 import { Login } from './components/Login'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import Home from './Home'
 const Notfound = () => {
 
-<Route path="/Login" component={<Login/>} ></Route>
+<Route path="/" component={<Home/>} ></Route>
 const page_404 = {
     padding:'40px 0',
     background:'#fff',
+    color:'#333',
+    height:'100vh',
+    width:'100vw',
+    display:'flex',
+    justifyContent:'center',
     fontFamily: "'Arvo', serif"
 }
   return (
@@ -25,7 +31,7 @@ const page_404 = {
                 Look like you're lost
               </h3>
               <p>the page you are looking for not avaible!</p>
-              <Link to="/Login" className="link_404">Go to Home</Link>
+              <Link to="/" className="link_404">Go to Home</Link>
             </div>
           </div>
         </div>
