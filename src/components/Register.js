@@ -1,10 +1,10 @@
 import React from 'react'
-import { Link,Redirect} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import { useState } from "react";
 import Header from './Header';
 
-const Register = ({onSubmit}) => {
+const Register = ({onSubmit,error}) => {
   <Route exact path="/Register" component={<Register/>} ></Route>
 
   const [UserName,SetUserName] = useState('')
@@ -22,14 +22,18 @@ const onClick =(e)=>{
       SetPassword('')
 
     }else{
-      alert('the User has been successfully created ')
-      SetConfirmPassword('')
-      SetPassword('')
-      SetUserName('')
+      onSubmit({UserName,Password,ConfirmPassword,SetUserName, SetPassword, SetConfirmPassword})
      
     }
   }
  
+}
+const errorStyle = {
+  color: '#fff',
+    background: '#c03a3a94',
+    padding:'14px',
+    borderRadius: '10px',
+    marginBottom: '5px'
 }
 
   return (
@@ -37,8 +41,10 @@ const onClick =(e)=>{
       <Header/>
       <br/>
         <div className="grid">
+        <div style={errorStyle}>{error}</div>
     <form onSubmit={onClick} className="form login">
       <div className="form__field">
+        
         <label htmlFor="login__username"><svg className="icon">
             <use xlinkHref="#icon-user" />
           </svg><span className="hidden">Username</span></label>
