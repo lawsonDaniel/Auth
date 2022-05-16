@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 import { useState } from "react";
 import Header from './Header';
 
-const Register = ({onSubmit,error}) => {
+const Register = ({onSubmit,error,sucessfull,seterror}) => {
   <Route exact path="/Register" component={<Register/>} ></Route>
 
   const [UserName,SetUserName] = useState('')
@@ -14,10 +14,10 @@ const Register = ({onSubmit,error}) => {
 const onClick =(e)=>{
   e.preventDefault()
   if(!UserName && !Password && !ConfirmPassword){
-    alert('fill the form')
+    seterror('fill the form fields')
   }else{
-    if(Password != ConfirmPassword){
-      alert('please password and confirm password must be the same')
+    if(Password !== ConfirmPassword){
+      seterror('please password and confirm password must be the same')
       SetConfirmPassword('')
       SetPassword('')
 
@@ -35,13 +35,21 @@ const errorStyle = {
     borderRadius: '10px',
     marginBottom: '5px'
 }
-
+const SucessStyle = {
+  color: '#fff',
+    background: '#3AC06994',
+    padding:'14px',
+    borderRadius: '10px',
+    marginBottom: '5px'
+}
   return (
     <div>
       <Header/>
       <br/>
         <div className="grid">
-        <div style={errorStyle}>{error}</div>
+        {error !=='' ? <div style={errorStyle}>{error}</div>: null}
+        { sucessfull !=='' ? <div style={SucessStyle}>{ sucessfull}</div> : null}
+       
     <form onSubmit={onClick} className="form login">
       <div className="form__field">
         
