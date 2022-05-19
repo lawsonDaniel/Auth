@@ -12,7 +12,7 @@ import Profile from "./components/Profile";
 function App() {
   const [error, seterror] = useState('');
   const [sucessfull, setsucessfull] = useState('');
-  <Route exact path="/Profile" component={<Profile/>} ></Route>
+  const [login, setlogin] = useState(false)
   //setting up function to navivage to login
   let navigate = useNavigate();
 
@@ -69,7 +69,14 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.log(`${ errorMessage} and ${errorCode}`)
+   
+    seterror(errorMessage)
+    setsucessfull('')
+    const clearSucessAndRedirect = ()=>{
+      seterror('')
+    }
+    //go to the profile page and clear the sucess message
+    setTimeout(clearSucessAndRedirect,5000)
   });
 
       
@@ -81,6 +88,7 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/Login" element={<Login login={login} error={error} sucessfull={sucessfull} seterror={seterror} />}></Route>
+        <Route exact path="/Profile" element={<Profile/>} ></Route>
         <Route path="/Register" element={<Register error={error} sucessfull={sucessfull} seterror={seterror}  onSubmit={reg}/>}></Route>
         <Route path="*" element={<Notfound/>}></Route>
       </Routes>
