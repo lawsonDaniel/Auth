@@ -12,7 +12,7 @@ import Profile from "./components/Profile";
 function App() {
   const [error, seterror] = useState('');
   const [sucessfull, setsucessfull] = useState('');
-  const [login, setlogin] = useState(false)
+  const [islogin, setislogin] = useState(false)
   //setting up function to navivage to login
   let navigate = useNavigate();
 
