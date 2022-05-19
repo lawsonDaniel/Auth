@@ -2,27 +2,51 @@ import React from 'react'
 import './login.css'
 import { Link,Route } from 'react-router-dom'
 import Header from './Header'
+import { useState } from 'react'
 
-export const Login = () => {
+export const Login = ({login,error,sucessfull}) => {
   <Route path="/Login" component={<Login/>} ></Route>
+  const [email,setemail] = useState('')
+  const [password,setpassword] = useState('')
+  const submit= (e)=>{
+    e.preventDefault()
+    login({email,password})
+  }
+  const errorStyle = {
+    color: '#fff',
+      background: '#c03a3a94',
+      padding:'14px',
+      borderRadius: '10px',
+      marginBottom: '5px'
+  }
+  const SucessStyle = {
+    color: '#fff',
+      background: '#3AC06994',
+      padding:'14px',
+      borderRadius: '10px',
+      marginBottom: '5px'
+  }
+
   return (
    <>
    <Header/>
    <br />
         <div>
   <div className="grid">
-    <form action="https://httpbin.org/post" method="POST" className="form login">
+        {error !=='' ? <div style={errorStyle}>{error}</div>: null}
+        { sucessfull !=='' ? <div style={SucessStyle}>{ sucessfull}</div> : null}
+    <form onSubmit={submit} className="form login">
       <div className="form__field">
         <label htmlFor="login__username"><svg className="icon">
             <use xlinkHref="#icon-user" />
           </svg><span className="hidden">Username</span></label>
-        <input autoComplete="username" id="login__username" type="text" name="username" className="form__input" placeholder="Username" required />
+        <input type="text" value={email} onChange={(e)=>{setemail(e.target.value)}} name="username" className="form__input" placeholder="Username" required />
       </div>
       <div className="form__field">
         <label htmlFor="login__password"><svg className="icon">
             <use xlinkHref="#icon-lock" />
           </svg><span className="hidden">Password</span></label>
-        <input id="login__password" type="password" name="password" className="form__input" placeholder="Password" required />
+        <input value={password} onChange={(e)=>{setpassword(e.target.value)}} type="password" className="form__input" placeholder="Password" required />
       </div>
       <div className="form__field">
         <input type="submit" value="Sign In" />
