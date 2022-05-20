@@ -6,7 +6,8 @@ import { useState } from "react";
 import Home from "./Home";
 import { app } from "./conn/fire_base_config";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import Profile from "./components/Profile";
+import Profile from "./components/Private/Profile";
+import Protected from "./components/Private/Protected";
 
 
 function App() {
@@ -57,6 +58,7 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
     // Signed in 
     const user = userCredential.user;
     seterror('')
+    setislogin(true)
     setsucessfull('User Login sucessfull')
     const clearSucessAndRedirect = ()=>{
       navigate("/Profile", { replace: true });
@@ -88,7 +90,10 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/Login" element={<Login login={login} error={error} sucessfull={sucessfull} seterror={seterror} />}></Route>
-        <Route exact path="/Profile" element={<Profile/>} ></Route>
+  
+         <Route exact path="/Profile" element={<Protected islogin={islogin}>
+           <Profile/>
+         </Protected>} />   
         <Route path="/Register" element={<Register error={error} sucessfull={sucessfull} seterror={seterror}  onSubmit={reg}/>}></Route>
         <Route path="*" element={<Notfound/>}></Route>
       </Routes>
