@@ -81,7 +81,7 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
     setTimeout(clearSucessAndRedirect,5000)
   });
 
-      
+
     }
 
   return (
@@ -90,10 +90,7 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/Login" element={<Login login={login} error={error} sucessfull={sucessfull} seterror={seterror} />}></Route>
-  
-         <Route exact path="/Profile" element={<Protected islogin={islogin}>
-           <Profile/>
-         </Protected>} />   
+         <Route exact path="/Profile"  element={islogin ? <Profile/> : <Login />} > </Route>
         <Route path="/Register" element={<Register error={error} sucessfull={sucessfull} seterror={seterror}  onSubmit={reg}/>}></Route>
         <Route path="*" element={<Notfound/>}></Route>
       </Routes>

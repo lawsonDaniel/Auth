@@ -33,8 +33,8 @@ export const Login = ({login,error,sucessfull}) => {
    <br />
         <div>
   <div className="grid">
-        {error !=='' ? <div style={errorStyle}>{error}</div>: null}
-        { sucessfull !=='' ? <div style={SucessStyle}>{ sucessfull}</div> : null}
+        {error === undefined ? <div style={errorStyle}>{error}</div>: null}
+        {sucessfull === undefined ? <div style={SucessStyle}>{ sucessfull}</div> : null}
     <form onSubmit={submit} className="form login">
       <div className="form__field">
         <label htmlFor="login__username"><svg className="icon">
