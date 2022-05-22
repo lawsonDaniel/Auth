@@ -13,7 +13,7 @@ import Protected from "./components/Private/Protected";
 function App() {
   const [error, seterror] = useState('');
   const [sucessfull, setsucessfull] = useState('');
-  const [islogin, setislogin] = useState(false)
+  let islogin = localStorage.setItem("logged",false)
   //setting up function to navivage to login
   let navigate = useNavigate();
 
@@ -58,7 +58,7 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
     // Signed in 
     const user = userCredential.user;
     seterror('')
-    setislogin(true)
+    islogin = localStorage.setItem("logged",true)
     setsucessfull('User Login sucessfull')
     const clearSucessAndRedirect = ()=>{
       navigate("/Profile", { replace: true });
@@ -81,16 +81,17 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
     setTimeout(clearSucessAndRedirect,5000)
   });
 
-
+  
+      
     }
-
+let logged = localStorage.getItem("logged")
   return (
     <>
     
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/Login" element={<Login login={login} error={error} sucessfull={sucessfull} seterror={seterror} />}></Route>
-         <Route exact path="/Profile"  element={islogin ? <Profile/> : <Login />} > </Route>
+         <Route exact path="/Profile"  element={logged ? <Profile/> : <Login />} > </Route>
         <Route path="/Register" element={<Register error={error} sucessfull={sucessfull} seterror={seterror}  onSubmit={reg}/>}></Route>
         <Route path="*" element={<Notfound/>}></Route>
       </Routes>
