@@ -26,7 +26,9 @@ const Profile = () => {
       
     <div style={container}>
          <div style={sidebar}>Side bar</div>
-         <div style={mainbar}>Main Area</div>
+         <div style={mainbar}>
+           <h3>{`email ${localStorage.getItem('login')}`}</h3>
+         </div>
     </div>
   )
 }
