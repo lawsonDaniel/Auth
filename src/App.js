@@ -7,13 +7,13 @@ import Home from "./Home";
 import { app } from "./conn/fire_base_config";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut  } from "firebase/auth";
 import Profile from "./components/Private/Profile";
-import Protected from "./components/Private/Protected";
+
 
 
 function App() {
   const [error, seterror] = useState('');
   const [sucessfull, setsucessfull] = useState('');
-  const [email,setemail] = useState('')
+ 
   //setting up function to navivage to login
   let navigate = useNavigate();
 
@@ -59,12 +59,13 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
     const user = userCredential.user;
     console.log(user)
     seterror('')
-    setemail(user.email)
+    
     setsucessfull('User Login sucessfull')
     localStorage.setItem('login',user.uid)
     const clearSucessAndRedirect = ()=>{
       navigate("/Profile", { replace: true });
       setsucessfull('')
+      localStorage.setItem('email',user.email)
     }
     //go to the profile page and clear the sucess message
     setTimeout(clearSucessAndRedirect,2000)
@@ -73,7 +74,6 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-   
     seterror(errorMessage)
     setsucessfull('')
     const clearSucessAndRedirect = ()=>{
@@ -94,6 +94,7 @@ signOut(auth).then(() => {
   // // Sign-out successful.
   //delect iuser from  local storage
   localStorage.removeItem('login')
+  localStorage.removeItem('email')
   //navigate to the login page
   navigate("/login",{replace:true})
 

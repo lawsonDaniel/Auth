@@ -7,9 +7,9 @@ import Header from './components/Header'
 const Home = () => {
   return (
     <div>
+       <Header/>
+       <br></br>
   <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-   
-   <Header/>
     <main className="px-3">
       <h1>Login System</h1>
       <p className="lead">This is a user authentication system built with react and firebase</p>
