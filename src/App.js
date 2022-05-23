@@ -5,7 +5,7 @@ import Notfound from './Notfound'
 import { useState } from "react";
 import Home from "./Home";
 import { app } from "./conn/fire_base_config";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut  } from "firebase/auth";
 import Profile from "./components/Private/Profile";
 import Protected from "./components/Private/Protected";
 
@@ -13,7 +13,7 @@ import Protected from "./components/Private/Protected";
 function App() {
   const [error, seterror] = useState('');
   const [sucessfull, setsucessfull] = useState('');
- 
+  const [email,setemail] = useState('')
   //setting up function to navivage to login
   let navigate = useNavigate();
 
@@ -57,9 +57,11 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
+    console.log(user)
     seterror('')
+    setemail(user.email)
     setsucessfull('User Login sucessfull')
-    localStorage.setItem('login',userEmail)
+    localStorage.setItem('login',user.uid)
     const clearSucessAndRedirect = ()=>{
       navigate("/Profile", { replace: true });
       setsucessfull('')
@@ -84,14 +86,28 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
   
       
     }
+//logout users
+const logout = ()=>{
+  
+const auth = getAuth();
+signOut(auth).then(() => {
+  // // Sign-out successful.
+  //delect iuser from  local storage
+  localStorage.removeItem('login')
+  //navigate to the login page
+  navigate("/login",{replace:true})
 
+}).catch((error) => {
+  // An error happened.
+})
+}
   return (
     <>
     
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/Login" element={<Login login={login} error={error} sucessfull={sucessfull} seterror={seterror} />}></Route>
-         <Route exact path={localStorage.getItem('login') ? '/Profile' : '/'}  element={localStorage.getItem('login') ? <Profile/> : <Login />} > </Route>
+         <Route exact path={localStorage.getItem('login') ? '/Profile' : '/'}  element={localStorage.getItem('login') ? <Profile logout={logout} /> : <Login />} > </Route>
         <Route path="/Register" element={<Register error={error} sucessfull={sucessfull} seterror={seterror}  onSubmit={reg}/>}></Route>
         <Route path="*" element={<Notfound/>}></Route>
       </Routes>

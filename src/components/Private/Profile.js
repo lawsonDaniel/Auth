@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const Profile = () => {
+const Profile = ({logout}) => {
    
   const container ={
     display:"flex",
@@ -25,7 +25,10 @@ const Profile = () => {
   return (
       
     <div style={container}>
-         <div style={sidebar}>Side bar</div>
+         <div style={sidebar}>
+           <div>sidebar</div>
+           <div><button onClick={logout}>logout</button></div>
+         </div>
          <div style={mainbar}>
            <h3>{`email ${localStorage.getItem('login')}`}</h3>
          </div>
