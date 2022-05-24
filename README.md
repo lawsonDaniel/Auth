@@ -1,11 +1,16 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). 
+and [firebase](https://firebase.google.com/)
+
+## About app
+the main concept about the app is the creation of the proctected page on user login
+
 
 ## Available Scripts
 
 In the project directory, you can run:
-## <a href="https://lawblazeauth.netlify.app/">Demo</a>
+## <a href="https://lawblazeauth.netlify.app/">View Demo</a>
 ### `npm start`
 
 Runs the app in the development mode.\
