@@ -14,6 +14,7 @@ function App() {
   const [error, seterror] = useState('');
   const [sucessfull, setsucessfull] = useState('');
   const [logintoken, setlogintoken] = useState('')
+  const [Logintokenvalue, setLogintokenvalue] = useState('')
   //setting up function to navivage to login
   let navigate = useNavigate();
 
@@ -70,11 +71,12 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
       navigate("/Profile", { replace: true });
       setsucessfull('')
       localStorage.setItem('email',user.email)
-      console.log(user)
+     
     }
     //go to the profile page and clear the sucess message
     setTimeout(clearSucessAndRedirect,2000)
     setlogintoken(user.accessToken)
+    setLogintokenvalue(user.uid)
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -99,7 +101,7 @@ signOut(auth).then(() => {
   // // Sign-out successful.
   //delect iuser from  local storage
   
-  localStorage.removeItem(logintoken)
+  localStorage.removeItem(Logintokenvalue)
   localStorage.removeItem('email')
   //navigate to the login page
   navigate("/login",{replace:true})
@@ -111,7 +113,7 @@ signOut(auth).then(() => {
  
   return (
     <>
-  
+  {console.log(Logintokenvalue)}
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/Login" element={<Login login={login} error={error} sucessfull={sucessfull} seterror={seterror} />}></Route>
