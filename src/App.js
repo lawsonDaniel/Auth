@@ -13,7 +13,7 @@ import Profile from "./components/Private/Profile";
 function App() {
   const [error, seterror] = useState('');
   const [sucessfull, setsucessfull] = useState('');
- 
+  const [logintoken, setlogintoken] = useState('')
   //setting up function to navivage to login
   let navigate = useNavigate();
 
@@ -25,6 +25,7 @@ function App() {
         // Signed in 
         const user = userCredential.user;
         //Clear error message
+       
         seterror('')
         setTimeout(()=> seterror('') , 5000);
         
@@ -57,19 +58,23 @@ signInWithEmailAndPassword(auth, userEmail, userPassword)
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    console.log(user)
-    seterror('')
     
+    seterror('')
+   
     setsucessfull('User Login sucessfull')
-    localStorage.setItem('login',user.uid)
+    
+    
+   
+    localStorage.setItem(user.uid,user.accessToken)
     const clearSucessAndRedirect = ()=>{
       navigate("/Profile", { replace: true });
       setsucessfull('')
       localStorage.setItem('email',user.email)
+      console.log(user)
     }
     //go to the profile page and clear the sucess message
     setTimeout(clearSucessAndRedirect,2000)
-
+    setlogintoken(user.accessToken)
   })
   .catch((error) => {
     const errorCode = error.code;
@@ -93,7 +98,8 @@ const auth = getAuth();
 signOut(auth).then(() => {
   // // Sign-out successful.
   //delect iuser from  local storage
-  localStorage.removeItem('login')
+  
+  localStorage.removeItem(logintoken)
   localStorage.removeItem('email')
   //navigate to the login page
   navigate("/login",{replace:true})
@@ -102,13 +108,14 @@ signOut(auth).then(() => {
   // An error happened.
 })
 }
+ 
   return (
     <>
-    
+  
       <Routes>
         <Route path="/" element={<Home/>}></Route>
         <Route path="/Login" element={<Login login={login} error={error} sucessfull={sucessfull} seterror={seterror} />}></Route>
-         <Route exact path={localStorage.getItem('login') ? '/Profile' : '/'}  element={localStorage.getItem('login') ? <Profile logout={logout} /> : <Login />} > </Route>
+         <Route exact path={logintoken && '/Profile' }  element={logintoken ? <Profile logout={logout} /> : <Login />} > </Route>
         <Route path="/Register" element={<Register error={error} sucessfull={sucessfull} seterror={seterror}  onSubmit={reg}/>}></Route>
         <Route path="*" element={<Notfound/>}></Route>
       </Routes>
