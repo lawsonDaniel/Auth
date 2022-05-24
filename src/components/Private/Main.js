@@ -20,17 +20,16 @@ const Main = () => {
   return (
     <>
    
-    <div style={mainbar}>
+    <main style={mainbar}>
             <h1 style={{fontFamily: 'Macondo, cursive'}}>Dashboard</h1>
            {/* <h3>{`email ${localStorage.getItem('email')}`}</h3> */}
             <div style={profileContainer}>
+             <Box content={localStorage.getItem('email')}/>
              <Box />
              <Box />
              <Box />
-             <Box />
-             
             </div>
-         </div>
+         </main>
     </>
   )
 }

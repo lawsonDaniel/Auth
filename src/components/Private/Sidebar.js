@@ -6,7 +6,6 @@ const Sidebar = ({logout}) => {
     background:'rgb(217 217 217',
     padding:'20px',
     flex: '0 1 2%',
-    height:'100vh',
     color:'#333'
   }
   const button = {
@@ -14,13 +13,14 @@ const Sidebar = ({logout}) => {
   }
   return (
     <>
-         <div style={sidebar}>
+         <aside style={sidebar}>
            <div>
           <span style={button} onClick={logout} className="material-icons">
           logout
           </span>
+          <span>Logout</span>
     </div>
-         </div> 
+         </aside> 
     </>
   )
 }

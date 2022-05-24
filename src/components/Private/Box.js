@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Box = ({color,width}) => {
+const Box = ({color,width,content}) => {
          
     const box ={
         width: `${width}`,
@@ -12,7 +12,9 @@ const Box = ({color,width}) => {
      
   return (
     <>
-    <div style={box}></div>
+    <div style={box}>
+        {content}
+    </div>
     </>
   )
 }
